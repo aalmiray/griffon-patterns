@@ -20,11 +20,11 @@ public class SampleModel extends AbstractGriffonModel {
         return output;
     }
 
-    public void setOutput(String output) {                              //<3>
+    public void setOutput(String output) {
         outputProperty().set(output);
     }
 
-    public String getOutput() {                                         //<3>
+    public String getOutput() {
         return output == null ? null : outputProperty().get();
     }
 }

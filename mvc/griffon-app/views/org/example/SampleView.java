@@ -44,18 +44,18 @@ public class SampleView extends AbstractJavaFXGriffonView {
 
         Node node = loadFromFXML();
         ((Group) scene.getRoot()).getChildren().addAll(node);
-        connectActions(node, controller);
+        connectActions(node, controller);                                      //<1>
 
         return scene;
     }
 
     @Nonnull
-    public TextField getInput() {
+    public TextField getInput() {                                              //<2>
         return input;
     }
 
     @Nonnull
-    public Label getOutput() {
+    public Label getOutput() {                                                 //<2>
         return output;
     }
 }

@@ -17,13 +17,13 @@ import java.util.Collections;
 
 @ArtifactProviderFor(GriffonView.class)
 public class SampleView extends AbstractJavaFXGriffonView {
-    private SamplePresenter controller;
+    private SamplePresenter presenter;
 
     @FXML private TextField input;
     @FXML private Label output;
 
-    public void setController(SamplePresenter controller) {
-        this.controller = controller;
+    public void setPresenter(SamplePresenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
@@ -44,18 +44,18 @@ public class SampleView extends AbstractJavaFXGriffonView {
 
         Node node = loadFromFXML();
         ((Group) scene.getRoot()).getChildren().addAll(node);
-        connectActions(node, controller);
+        connectActions(node, presenter);                                       //<1>
 
         return scene;
     }
 
     @Nonnull
-    public TextField getInput() {
+    public TextField getInput() {                                              //<2>
         return input;
     }
 
     @Nonnull
-    public Label getOutput() {
+    public Label getOutput() {                                                 //<2>
         return output;
     }
 }

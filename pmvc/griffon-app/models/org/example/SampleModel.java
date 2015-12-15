@@ -21,11 +21,11 @@ public class SampleModel extends AbstractGriffonModel {
         return input;
     }
 
-    public void setInput(String input) {                                //<3>
+    public void setInput(String input) {
         inputProperty().set(input);
     }
 
-    public String getInput() {                                          //<3>
+    public String getInput() {
         return input == null ? null : inputProperty().get();
     }
 
@@ -37,11 +37,11 @@ public class SampleModel extends AbstractGriffonModel {
         return output;
     }
 
-    public void setOutput(String output) {                              //<3>
+    public void setOutput(String output) {
         outputProperty().set(output);
     }
 
-    public String getOutput() {                                         //<3>
+    public String getOutput() {
         return output == null ? null : outputProperty().get();
     }
 }

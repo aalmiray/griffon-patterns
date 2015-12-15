@@ -18,7 +18,7 @@ public class Config extends AbstractMapResourceBundle {
             .e("mvcGroups", map()
                 .e("sample", map()
                     .e("view", "org.example.SampleView")
-                    .e("controller", "org.example.SampleViewModel")
+                    .e("viewModel", "org.example.SampleViewModel")
                 )
             );
     }

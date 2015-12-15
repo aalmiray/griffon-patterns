@@ -21,7 +21,7 @@ public class SampleModel extends AbstractGriffonModel {
         return output;
     }
 
-    public void setOutput(String output) {                              //<3>
+    public void setOutput(String output) {
         outputProperty().set(output);
     }
 
@@ -38,7 +38,7 @@ public class SampleModel extends AbstractGriffonModel {
     @Override
     public void mvcGroupInit(@Nonnull Map<String, Object> args) {
         outputProperty().addListener((observable, oldValue, newValue) -> {
-            runInsideUIAsync(() -> view.getOutput().setText(newValue));
+            runInsideUIAsync(() -> view.getOutput().setText(newValue));        //<1>
         });
     }
 }

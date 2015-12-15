@@ -48,9 +48,9 @@ public class SampleView extends AbstractJavaFXGriffonView {
 
         Node node = loadFromFXML();
         ((Group) scene.getRoot()).getChildren().addAll(node);
-        model.inputProperty().bindBidirectional(input.textProperty());
-        model.outputProperty().bindBidirectional(output.textProperty());
-        connectActions(node, controller);
+        model.inputProperty().bindBidirectional(input.textProperty());         //<2>
+        model.outputProperty().bindBidirectional(output.textProperty());       //<2>
+        connectActions(node, controller);                                      //<1>
 
         return scene;
     }

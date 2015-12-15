@@ -19,7 +19,7 @@ public class Config extends AbstractMapResourceBundle {
                 .e("sample", map()
                     .e("model", "org.example.SampleModel")
                     .e("view", "org.example.SampleView")
-                    .e("controller", "org.example.SamplePresenter")
+                    .e("presenter", "org.example.SamplePresenter")
                 )
             );
     }

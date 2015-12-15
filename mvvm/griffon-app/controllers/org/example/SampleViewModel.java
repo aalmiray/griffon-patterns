@@ -25,11 +25,11 @@ public class SampleViewModel extends AbstractGriffonController {
         return input;
     }
 
-    public void setInput(String input) {                                //<3>
+    public void setInput(String input) {
         inputProperty().set(input);
     }
 
-    public String getInput() {                                          //<3>
+    public String getInput() {
         return input == null ? null : inputProperty().get();
     }
 
@@ -58,12 +58,14 @@ public class SampleViewModel extends AbstractGriffonController {
 
     @Override
     public void mvcGroupInit(@Nonnull Map<String, Object> args) {
-        inputProperty().bindBidirectional(view.getInput().textProperty());
-        outputProperty().bindBidirectional(view.getOutput().textProperty());
+        inputProperty().bindBidirectional(view.getInput().textProperty());     //<4>
+        outputProperty().bindBidirectional(view.getOutput().textProperty());   //<4>
     }
 
     @Threading(Threading.Policy.INSIDE_UITHREAD_ASYNC)
     public void sayHello() {
-        setOutput(sampleService.sayHello(getInput()));
+        String input = getInput();                                             //<1>
+        String output = sampleService.sayHello(input);                         //<2>
+        setOutput(output);                                                     //<3>
     }
 }

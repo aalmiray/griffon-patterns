@@ -20,6 +20,8 @@ public class SampleController extends AbstractGriffonController {
 
     @Threading(Threading.Policy.INSIDE_UITHREAD_ASYNC)
     public void sayHello() {
-        model.setOutput(sampleService.sayHello(model.getInput()));
+        String input = model.getInput();                                       //<1>
+        String output = sampleService.sayHello(input);                         //<2>
+        model.setOutput(output);                                               //<3>
     }
 }
