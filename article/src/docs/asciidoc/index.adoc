@@ -3,7 +3,7 @@
 
 == Pattern Descriptions
 
-The fololwing section describe the four patterns that we'll use to implement a trivial application
+The following section describe the four patterns that we'll use to implement a trivial application
 
 === MVC: Model-View-Controller
 
