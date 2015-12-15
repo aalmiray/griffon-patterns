@@ -347,3 +347,9 @@ link:https://bintray.com/griffon/griffon-lazybones-templates[standard project te
 migrate from one pattern to the next.
 
 The code for all applications is readily available on GitHub at link:https://github.com/aalmiray/griffon-patterns[aalmiray/griffon-patterns].
+
+== Updates
+
+ * In MVVM, the *View* binds to the *ViewModel* and not the other way around, as MVVM follows a top-down approach. Thanks to
+   Alexander Casall (link:https://twitter.com/sialcasa[@sialcasa], author or link:https://github.com/sialcasa/mvvmFX[mvvm(FX)]) for
+   pointing this out.
