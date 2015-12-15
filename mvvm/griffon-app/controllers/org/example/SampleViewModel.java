@@ -9,7 +9,6 @@ import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonController;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import java.util.Map;
 
 @ArtifactProviderFor(GriffonController.class)
 public class SampleViewModel extends AbstractGriffonController {
@@ -41,11 +40,11 @@ public class SampleViewModel extends AbstractGriffonController {
         return output;
     }
 
-    public void setOutput(String output) {                              //<3>
+    public void setOutput(String output) {
         outputProperty().set(output);
     }
 
-    public String getOutput() {                                         //<3>
+    public String getOutput() {
         return output == null ? null : outputProperty().get();
     }
 
@@ -54,12 +53,6 @@ public class SampleViewModel extends AbstractGriffonController {
 
     public void setView(SampleView view) {
         this.view = view;
-    }
-
-    @Override
-    public void mvcGroupInit(@Nonnull Map<String, Object> args) {
-        inputProperty().bindBidirectional(view.getInput().textProperty());     //<4>
-        outputProperty().bindBidirectional(view.getOutput().textProperty());   //<4>
     }
 
     @Threading(Threading.Policy.INSIDE_UITHREAD_ASYNC)

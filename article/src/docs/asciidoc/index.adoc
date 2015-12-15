@@ -3,7 +3,7 @@
 
 == Pattern Descriptions
 
-The follwing section describe the four patterns that we'll use to implement a trivial application
+The fololwing section describe the four patterns that we'll use to implement a trivial application
 
 === MVC: Model-View-Controller
 
@@ -16,7 +16,7 @@ where all parts can communicate with each other. Problem is, the links between s
 some claim the *View* may only read the *Model* but do not update it directly, where as others claim data flows equally
 both ways.
 
-The following diagram presents one of the many ways in which this pattern may be implemented; the dottec lines represent
+The following diagram presents one of the many ways in which this pattern may be implemented; the dotted lines represent
 passive links.
 
 .MVC
@@ -118,7 +118,7 @@ The PMVC pattern is the ultimate variation of MVC, where we're back to the trian
 between members. The *PresentationModel* is responsible for holding information used to display the application's data
 and hints to how said data should be visualized, such as colors, fonts, etc. Similarly to MVVM, the *View* benefits from
 a *Binder* that can tie data from the *PresentationModel* to the *View*'s UI elements. The *Controller* is now content
-to manipulate the *PresentationModel* directly, completly oblivious about a specific *View*. This leads to a much more
+to manipulate the *PresentationModel* directly, completely oblivious about a specific *View*. This leads to a much more
 testable outcome, as the *PresentationModel* and *Controller* are completely separate from the *View*.
 
 .PMVC
@@ -196,7 +196,7 @@ the *View*. You may be wondering, how is the connection established between *Con
 the FXML file you'll notice that the button has an id equal to `sayHelloActionTarget`.  That name is really close to one
 of the *Controller*'s public methods. Also, in the *View* there's a call to `connectActions` that takes a `controller`
 argument. Here Griffon expects a naming convention (the name of the action method plus the name of the button's id), which
-if followed correctly, will make the aconnection between *Controller* and *View*.
+if followed correctly, will make the a connection between *Controller* and *View*.
 
 [source,java,linenums,nowrap]
 .org.example.SampleController.java
@@ -262,8 +262,8 @@ The configuration is quite flexible to allow us a simple rename.
 === MVVM
 
 On to the third pattern, MVVM. The *View* is again a passive one. A *Binder* makes it easy to keep data in sync between
-the *View* and the *ViewModel*. I opted to make use of the *Binder* in the *ViewModel*, rendering a *View* that's exactly
-the same as in the previous two patterns.
+the *View* and the *ViewModel*. I opted to make use of the *Binder* in the *View*, rendering it almost exactly the same
+as in the previous two patterns.
 
 [source,java,linenums,nowrap]
 .org.example.SampleView.java
@@ -271,7 +271,7 @@ the same as in the previous two patterns.
 include::{mvvm}/griffon-app/views/org/example/SampleView.java[]
 ----
 <1> Connects user events to *ViewModel*
-<2> Exposes UI elements
+<2> Binds *ViewModel* and *View*
 
 Now, the *ViewModel* contains data and behavior, essentially, a combination of *Model* and *Controller*/*Presenter* as
 seen in previous patterns
@@ -284,7 +284,6 @@ include::{mvvm}/griffon-app/controllers/org/example/SampleViewModel.java[]
 <1> Read input
 <2> Transform data
 <3> Set as output
-<4> Binds *Model* and *View*
 
 The configuration is shown next.
 
