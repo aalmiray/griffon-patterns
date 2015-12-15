@@ -539,7 +539,7 @@ table.CodeRay td.code>pre{padding:0}
 <h2 id="_pattern_descriptions">1. Pattern Descriptions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The follwing section describe the four patterns that we&#8217;ll use to implement a trivial application</p>
+<p>The fololwing section describe the four patterns that we&#8217;ll use to implement a trivial application</p>
 </div>
 <div class="sect2">
 <h3 id="_mvc_model_view_controller">1.1. MVC: Model-View-Controller</h3>
@@ -555,7 +555,7 @@ some claim the <strong>View</strong> may only read the <strong>Model</strong> bu
 both ways.</p>
 </div>
 <div class="paragraph">
-<p>The following diagram presents one of the many ways in which this pattern may be implemented; the dottec lines represent
+<p>The following diagram presents one of the many ways in which this pattern may be implemented; the dotted lines represent
 passive links.</p>
 </div>
 <div class="imageblock">
@@ -609,7 +609,7 @@ the availability of a <strong>Binder</strong>, used to synchronize data between 
 between members. The <strong>PresentationModel</strong> is responsible for holding information used to display the application&#8217;s data
 and hints to how said data should be visualized, such as colors, fonts, etc. Similarly to MVVM, the <strong>View</strong> benefits from
 a <strong>Binder</strong> that can tie data from the <strong>PresentationModel</strong> to the <strong>View</strong>'s UI elements. The <strong>Controller</strong> is now content
-to manipulate the <strong>PresentationModel</strong> directly, completly oblivious about a specific <strong>View</strong>. This leads to a much more
+to manipulate the <strong>PresentationModel</strong> directly, completely oblivious about a specific <strong>View</strong>. This leads to a much more
 testable outcome, as the <strong>PresentationModel</strong> and <strong>Controller</strong> are completely separate from the <strong>View</strong>.</p>
 </div>
 <div class="imageblock">
@@ -1001,7 +1001,7 @@ the <strong>View</strong>. You may be wondering, how is the connection establish
 the FXML file you&#8217;ll notice that the button has an id equal to <code>sayHelloActionTarget</code>.  That name is really close to one
 of the <strong>Controller</strong>'s public methods. Also, in the <strong>View</strong> there&#8217;s a call to <code>connectActions</code> that takes a <code>controller</code>
 argument. Here Griffon expects a naming convention (the name of the action method plus the name of the button&#8217;s id), which
-if followed correctly, will make the aconnection between <strong>Controller</strong> and <strong>View</strong>.</p>
+if followed correctly, will make the a connection between <strong>Controller</strong> and <strong>View</strong>.</p>
 </div>
 <div class="listingblock">
 <div class="title">org.example.SampleController.java</div>
@@ -1496,8 +1496,8 @@ the current types are more than enough to provide the required behavior</p>
 <h3 id="_mvvm">2.3. MVVM</h3>
 <div class="paragraph">
 <p>On to the third pattern, MVVM. The <strong>View</strong> is again a passive one. A <strong>Binder</strong> makes it easy to keep data in sync between
-the <strong>View</strong> and the <strong>ViewModel</strong>. I opted to make use of the <strong>Binder</strong> in the <strong>ViewModel</strong>, rendering a <strong>View</strong> that&#8217;s exactly
-the same as in the previous two patterns.</p>
+the <strong>View</strong> and the <strong>ViewModel</strong>. I opted to make use of the <strong>Binder</strong> in the <strong>View</strong>, rendering it almost exactly the same
+as in the previous two patterns.</p>
 </div>
 <div class="listingblock">
 <div class="title">org.example.SampleView.java</div>
@@ -1556,14 +1556,6 @@ the same as in the previous two patterns.</p>
 51
 52
 53
-54
-55
-56
-57
-58
-59
-60
-61
 </pre></td>
   <td class="code"><pre><span class="keyword">package</span> <span class="namespace">org.example</span>;
 
@@ -1612,18 +1604,10 @@ the same as in the previous two patterns.</p>
         Node node = loadFromFXML();
         ((<span class="predefined-type">Group</span>) scene.getRoot()).getChildren().addAll(node);
         connectActions(node, viewModel);                                       <b class="conum">(1)</b>
+        input.textProperty().bindBidirectional(viewModel.inputProperty());     <b class="conum">(2)</b>
+        output.textProperty().bindBidirectional(viewModel.outputProperty());   <b class="conum">(2)</b>
 
         <span class="keyword">return</span> scene;
-    }
-
-    <span class="annotation">@Nonnull</span>
-    <span class="directive">public</span> <span class="predefined-type">TextField</span> getInput() {                                              <b class="conum">(2)</b>
-        <span class="keyword">return</span> input;
-    }
-
-    <span class="annotation">@Nonnull</span>
-    <span class="directive">public</span> <span class="predefined-type">Label</span> getOutput() {                                                 <b class="conum">(2)</b>
-        <span class="keyword">return</span> output;
     }
 }</pre></td>
 </tr></table></code></pre>
@@ -1635,7 +1619,7 @@ the same as in the previous two patterns.</p>
 <p>Connects user events to <strong>ViewModel</strong></p>
 </li>
 <li>
-<p>Exposes UI elements</p>
+<p>Binds <strong>ViewModel</strong> and <strong>View</strong></p>
 </li>
 </ol>
 </div>
@@ -1711,13 +1695,6 @@ seen in previous patterns</p>
 62
 63
 64
-65
-66
-67
-68
-69
-70
-71
 </pre></td>
   <td class="code"><pre><span class="keyword">package</span> <span class="namespace">org.example</span>;
 
@@ -1730,7 +1707,6 @@ seen in previous patterns</p>
 
 <span class="keyword">import</span> <span class="include">javax.annotation.Nonnull</span>;
 <span class="keyword">import</span> <span class="include">javax.inject.Inject</span>;
-<span class="keyword">import</span> <span class="include">java.util.Map</span>;
 
 <span class="annotation">@ArtifactProviderFor</span>(GriffonController.class)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">SampleViewModel</span> <span class="directive">extends</span> AbstractGriffonController {
@@ -1762,11 +1738,11 @@ seen in previous patterns</p>
         <span class="keyword">return</span> output;
     }
 
-    <span class="directive">public</span> <span class="type">void</span> setOutput(<span class="predefined-type">String</span> output) {                              <b class="conum">(3)</b>
+    <span class="directive">public</span> <span class="type">void</span> setOutput(<span class="predefined-type">String</span> output) {
         outputProperty().set(output);
     }
 
-    <span class="directive">public</span> <span class="predefined-type">String</span> getOutput() {                                         <b class="conum">(3)</b>
+    <span class="directive">public</span> <span class="predefined-type">String</span> getOutput() {
         <span class="keyword">return</span> output == <span class="predefined-constant">null</span> ? <span class="predefined-constant">null</span> : outputProperty().get();
     }
 
@@ -1775,12 +1751,6 @@ seen in previous patterns</p>
 
     <span class="directive">public</span> <span class="type">void</span> setView(SampleView view) {
         <span class="local-variable">this</span>.view = view;
-    }
-
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> mvcGroupInit(<span class="annotation">@Nonnull</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="predefined-type">Object</span>&gt; args) {
-        inputProperty().bindBidirectional(view.getInput().textProperty());     <b class="conum">(4)</b>
-        outputProperty().bindBidirectional(view.getOutput().textProperty());   <b class="conum">(4)</b>
     }
 
     <span class="annotation">@Threading</span>(Threading.Policy.INSIDE_UITHREAD_ASYNC)
@@ -1803,9 +1773,6 @@ seen in previous patterns</p>
 </li>
 <li>
 <p>Set as output</p>
-</li>
-<li>
-<p>Binds <strong>Model</strong> and <strong>View</strong></p>
 </li>
 </ol>
 </div>
@@ -2230,7 +2197,7 @@ migrate from one pattern to the next.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-12-15 04:04:57 +01:00
+Last updated 2015-12-15 13:30:29 +01:00
 </div>
 </div>
 </body>
