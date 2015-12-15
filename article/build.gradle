@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.1.11'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'org.ajoberstar:gradle-git:1.2.0'
+    }
+}
+
+apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'com.github.jruby-gradle.base'
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'org.ajoberstar.github-pages'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    gems 'rubygems:asciidoctor-diagram:1.2.1'
+}
+
+asciidoctor {
+    dependsOn jrubyPrepareGems
+
+    requires = ['asciidoctor-diagram']
+    gemPath = jrubyPrepareGems.outputDir
+
+    options doctype: 'book'
+
+    backends = ['html5']
+
+    attributes 'source-highlighter'    : 'coderay',
+               'coderay-linenums-mode' : 'table',
+               toc                     : 'left',
+               icon                    : 'font',
+               linkattrs               : true,
+               encoding                : 'utf-8',
+               imagesdir               : 'images'
+
+    resources {
+        from('src/docs/asciidoc') {
+             include '**/*.png'
+        }
+        from('src/docs/resources')
+    }
+}
+
+if (!project.hasProperty('githubUsername')) ext.githubUsername = ''
+if (!project.hasProperty('githubPassword')) ext.githubPassword = ''
+
+githubPages {
+    repoUri = 'https://github.com/aalmiray/griffon-patterns.git'
+    pages {
+        from asciidoctor.outputs.files
+    }
+
+    credentials {
+        username = githubUsername
+        password = githubPassword
+    }
+}
+
+publishGhPages.dependsOn(asciidoctor)
