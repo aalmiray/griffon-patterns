@@ -1,0 +1,4 @@
+= MVC Patterns in Griffon
+
+The article can be found link:http://aalmiray.github.io/griffon-patterns/[here].
+
