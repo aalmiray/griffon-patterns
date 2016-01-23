@@ -9,8 +9,7 @@ configurations {
 
 dependencies {
     functionalTestCompile 'junit:junit:4.12'
-    functionalTestCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
-    functionalTestCompile "org.spockframework:spock-core:${spockVersion}"
+    functionalTestCompile 'pl.pragmatists:JUnitParams:1.0.4'
 }
 
 sourceSets {
@@ -51,3 +50,18 @@ task functionalTestReport(type: TestReport) {
 functionalTest.mustRunAfter integrationTest
 functionalTest.finalizedBy functionalTestReport
 check.dependsOn functionalTestReport
+
+task jacocoFunctionalTestReport(dependsOn: functionalTest, type: JacocoReport) {
+    group = 'Reporting'
+    description = 'Generate Jacoco coverage reports after running functional tests.'
+    executionData file("${buildDir}/jacoco/functionalTest.exec")
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories = files(sourceSets.main.output)
+    reports {
+        csv.enabled = false
+        xml.enabled = true
+        html.enabled = true
+        html.destination = "${buildDir}/reports/jacoco/functional-test/html"
+        xml.destination = "${buildDir}/reports/jacoco/functional-test/jacocoFunctionalTestReport.xml"
+    }
+}

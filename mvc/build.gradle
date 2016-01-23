@@ -6,7 +6,6 @@ buildscript {
 
     dependencies {
         classpath 'org.codehaus.griffon:gradle-griffon-plugin:2.5.0'
-        classpath 'net.saliman:gradle-cobertura-plugin:2.2.8'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
         classpath 'org.gradle.api.plugins:gradle-izpack-plugin:0.2.3'
@@ -62,8 +61,8 @@ dependencies {
     runtime 'org.slf4j:slf4j-log4j12:1.7.13'
 
     testCompile "org.codehaus.griffon:griffon-javafx-test:${griffon.version}"
-    testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
-    testCompile "org.spockframework:spock-core:${spockVersion}"
+    testCompile 'pl.pragmatists:JUnitParams:1.0.4'
+    testCompile 'org.mockito:mockito-core:2.0.39-beta'
 
     functionalTestCompile "org.codehaus.griffon:griffon-javafx-test:${griffon.version}"
 }
@@ -106,5 +105,25 @@ startScripts {
 if (hasProperty('debugRun') && ((project.debugRun as boolean))) {
     run {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005'
+    }
+}
+
+task jacocoRootMerge(type: org.gradle.testing.jacoco.tasks.JacocoMerge, dependsOn: [test, jacocoTestReport, jacocoIntegrationTestReport, jacocoFunctionalTestReport]) {
+    executionData = files(jacocoTestReport.executionData, jacocoIntegrationTestReport.executionData, jacocoFunctionalTestReport.executionData)
+    destinationFile = file("${buildDir}/jacoco/root.exec")
+}
+
+task jacocoRootReport(dependsOn: jacocoRootMerge, type: JacocoReport) {
+    group = 'Reporting'
+    description = 'Generate Jacoco coverage reports after running all tests.'
+    executionData file("${buildDir}/jacoco/root.exec")
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories = files(sourceSets.main.output)
+    reports {
+        csv.enabled = false
+        xml.enabled = true
+        html.enabled = true
+        html.destination = "${buildDir}/reports/jacoco/root/html"
+        xml.destination = "${buildDir}/reports/jacoco/root/root.xml"
     }
 }

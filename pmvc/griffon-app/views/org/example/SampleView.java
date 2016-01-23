@@ -34,6 +34,8 @@ public class SampleView extends AbstractJavaFXGriffonView {
     public void initUI() {
         Stage stage = (Stage) getApplication()
             .createApplicationContainer(Collections.<String, Object>emptyMap());
+        System.out.println(stage);
+        System.out.println(getApplication().getConfiguration());
         stage.setTitle(getApplication().getConfiguration().getAsString("application.title"));
         stage.setWidth(400);
         stage.setHeight(120);
