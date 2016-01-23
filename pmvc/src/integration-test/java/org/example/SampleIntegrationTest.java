@@ -17,8 +17,10 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.List;
 
+import static com.jayway.awaitility.Awaitility.await;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -61,9 +63,10 @@ public class SampleIntegrationTest {
         assertThat(model.getOutput(), nullValue());
         // when:
         model.setInput(input);
-        controller.sayHello();
+        controller.invokeAction("sayHello");
 
         // then:
+        await().until(() -> model.getOutput(), notNullValue());
         assertThat(model.getOutput(), equalTo(output));
     }
 
